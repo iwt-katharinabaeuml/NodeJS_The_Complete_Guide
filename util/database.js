@@ -1,13 +1,43 @@
+
+
 const { MongoClient } = require('mongodb');
 
-const mongoConnect = async (callback) => {
-  try {
-    const client = await MongoClient.connect('mongodb+srv://testUser:TestPassword@cluster0.i4es5p4.mongodb.net/');
-    console.log('Connected!');
-    callback(client);
-  } catch (err) {
-    console.error(err);
-  }
+// Verbindungs-URL zur lokalen MongoDB
+const url = 'mongodb://localhost:27017';
+
+// Name der Datenbank
+const dbName = 'first_trys';
+
+// Erstelle einen MongoDB-Client
+const client = new MongoClient(url);
+
+// Collection-Name 
+const collectionName = 'NodeJS_udemy'
+
+
+
+let _db;
+
+const mongoConnect = callback => {
+  client.connect()
+    .then(client => {
+      console.log('Connected!');
+      _db = client.db();
+      console.log("THIS IS THE CLIENT" + client)
+      callback();
+    })
+    .catch(err => {
+      console.log(err);
+      throw err;
+    });
 };
 
-module.exports = mongoConnect;
+const getDb = () => {
+  if (_db) {
+    return _db;
+  }
+  throw 'No database found!';
+};
+
+exports.mongoConnect = mongoConnect;
+exports.getDb = getDb;
