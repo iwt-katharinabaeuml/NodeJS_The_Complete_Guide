@@ -34,7 +34,7 @@ app.use(shopRoutes);
 app.use(errorController.get404);
 
 mongoose
-.connect('mongodb://localhost:27017/')
+.connect('mongodb://localhost:27017/shop')
 .then(result => {
-  console.log('connected'), app.listen(3000)})
+  console.log('connected'), app.listen(3000)}) // erst, wenn zu MongoDb connected ist, wir der Server gestartet (Localhost: 3000)
 .catch(err => {console.log(err)})
