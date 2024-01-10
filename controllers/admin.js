@@ -11,7 +11,6 @@ exports.getAddProduct = (req, res, next) => {
 };
 
 exports.postAddProduct = (req, res, next) => {
-  console.log("PROOOOOOODUUUUUUCCCT" + typeof(Product))
   const title = req.body.title;
   const imageUrl = req.body.imageUrl;
   const price = req.body.price;
@@ -78,6 +77,8 @@ Product.findById(prodId).then(product => {
 
 exports.getProducts = (req, res, next) => {
   Product.find()
+  // .select('title price _id')
+  // .populate('userId','name')
     .then((products) => {
       res.render("admin/products", {
         prods: products,
