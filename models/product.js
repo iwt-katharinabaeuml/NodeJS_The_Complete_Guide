@@ -19,8 +19,12 @@ const productSchema = new Schema({ //Blueprint
   imageUrl: {
     type: String, 
     required: true
+  },
+  userId: {
+    type: Schema.Types.ObjectId,
+    ref:'User', //same as the User-Model
+    required: true
   }
-
 }); 
 
 
